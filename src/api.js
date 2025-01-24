@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://task-management-4tz8.onrender.com/api/v1',
+  baseURL: process.env.REACT_APP_BASE_URL,
 });
 
 export default axiosInstance;
