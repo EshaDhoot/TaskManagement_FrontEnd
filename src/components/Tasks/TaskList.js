@@ -1,22 +1,25 @@
 import React, { useContext, useEffect, useState } from 'react';
 import TaskContext from '../../context/TaskContext';
 import { ThemeContext } from '../../context/ThemeContext';
-import { FaTrashAlt, FaCheckCircle, FaSearch } from 'react-icons/fa';
+import { FaTrashAlt, FaCheckCircle, FaSearch, FaArrowUp, FaArrowDown } from 'react-icons/fa';
 
 const TaskList = () => {
   const { tasks, deleteTask, updateTaskStatus, fetchTasks } = useContext(TaskContext);
   const { darkMode } = useContext(ThemeContext);
   const [searchTerm, setSearchTerm] = useState('');
-  const [filterDate, setFilterDate] = useState('');
   const [sortByCompleted, setSortByCompleted] = useState('');
+  const [sortOrder, setSortOrder] = useState('asc'); 
+
+  const toggleSortOrder = () => {
+    const newOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+    setSortOrder(newOrder);
+    fetchTasks(searchTerm, '', newOrder);
+  };
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  const handleDateFilterChange = (e) => {
-    setFilterDate(e.target.value);
-  };
   const handleSortByCompletedChange = (e) => {
     const value = e.target.value;
     if (value === 'completed') {
@@ -29,8 +32,8 @@ const TaskList = () => {
   };
 
   useEffect(() => {
-    fetchTasks(searchTerm, filterDate, sortByCompleted);
-  }, [searchTerm, filterDate, sortByCompleted]);
+    fetchTasks(searchTerm, sortOrder, sortByCompleted);
+  }, [searchTerm, sortOrder, sortByCompleted]);
   return (
     <div
       className={`p-6 rounded-lg shadow-lg max-w-sm mx-auto mt-8 transition-all duration-500 ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'
@@ -52,12 +55,20 @@ const TaskList = () => {
         />
       </div>
       <div className="flex mb-4 mt-4 space-x-4">
-        <input
-          type="date"
-          value={filterDate}
-          onChange={handleDateFilterChange}
-          className="p-2 w-1/2 rounded-lg border"
-        />
+      <button
+          onClick={toggleSortOrder}
+          className={`flex items-center px-4 py-2 text-sm font-bold rounded transition-all ${darkMode
+            ? 'bg-blue-600 text-white hover:bg-blue-700'
+            : 'bg-blue-500 text-white hover:bg-blue-600'
+            }`}
+        >
+          Sort by Due Date
+          {sortOrder === 'asc' ? (
+            <FaArrowUp className="ml-2" />
+          ) : (
+            <FaArrowDown className="ml-2" />
+          )}
+        </button>
         <select
           value={sortByCompleted}
           onChange={handleSortByCompletedChange}
