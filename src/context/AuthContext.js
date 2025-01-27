@@ -12,8 +12,9 @@ export const AuthProvider = ({ children }) => {
   const login = async (credentials) => {
     try {
       const response = await axios.post('/auth/login', credentials);
-      setToken(response.data.data);
-      Cookies.set('token', token, { expires: 7 });
+      const newToken = response.data.data;
+      setToken(newToken);
+      Cookies.set('token', newToken, { expires: 7 });
       toast.success(response.data.message);
       return true;
     } catch (error) {

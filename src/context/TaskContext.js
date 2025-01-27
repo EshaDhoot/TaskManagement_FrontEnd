@@ -8,7 +8,7 @@ const TaskContext = createContext();
 export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
 
-  const fetchTasks = async (searchTerm = '', dueDate = '', sortByCompleted = '') => {
+  const fetchTasks = async (searchTerm, dueDate, sortByCompleted) => {
     try {
       const params = {};
       if (searchTerm) {
@@ -17,7 +17,7 @@ export const TaskProvider = ({ children }) => {
       if (dueDate) {
         params.dueDate = dueDate;
       }
-      if (sortByCompleted) {
+      if (sortByCompleted !== undefined) {
         params.completed = sortByCompleted;
       }
       const response = await axios.get('/tasks', { params });

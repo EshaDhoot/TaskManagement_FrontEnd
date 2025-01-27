@@ -7,13 +7,13 @@ const TaskList = () => {
   const { tasks, deleteTask, updateTaskStatus, fetchTasks } = useContext(TaskContext);
   const { darkMode } = useContext(ThemeContext);
   const [searchTerm, setSearchTerm] = useState('');
-  const [sortByCompleted, setSortByCompleted] = useState('');
+  const [sortByCompleted, setSortByCompleted] = useState(undefined);
   const [sortOrder, setSortOrder] = useState('asc'); 
 
   const toggleSortOrder = () => {
     const newOrder = sortOrder === 'asc' ? 'desc' : 'asc';
     setSortOrder(newOrder);
-    fetchTasks(searchTerm, '', newOrder);
+    // fetchTasks(searchTerm, '', newOrder);
   };
 
   const handleSearchChange = (e) => {
@@ -23,11 +23,12 @@ const TaskList = () => {
   const handleSortByCompletedChange = (e) => {
     const value = e.target.value;
     if (value === 'completed') {
-      setSortByCompleted(true);
+      setSortByCompleted('true');
     } else if (value === 'pending') {
-      setSortByCompleted(false);
-    } else {
-      setSortByCompleted('');
+      setSortByCompleted('false');
+    } else if(value === 'all') {
+      console.log('Invalid value:', value);
+      setSortByCompleted(undefined);
     }
   };
 
