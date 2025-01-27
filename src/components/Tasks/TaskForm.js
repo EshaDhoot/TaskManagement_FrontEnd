@@ -68,7 +68,7 @@ const TaskForm = () => {
 
         <button
           type="submit"
-          className={`w-full py-3 font-bold rounded ${darkMode ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-blue-500 text-white hover:bg-blue-600'}`}
+          className={`w-full py-3 font-bold rounded ${darkMode ? 'bg-gray-600 text-white hover:bg-gray-700' : 'bg-blue-500 text-white hover:bg-blue-600'}`}
         >
           Add Task
         </button>

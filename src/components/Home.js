@@ -1,11 +1,16 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { BsFillMoonStarsFill, BsFillSunFill } from 'react-icons/bs';
-import { ThemeContext } from '../context/ThemeContext'; 
+import { ThemeContext } from '../context/ThemeContext';
+import { AuthContext } from '../context/AuthContext';
 
 const Home = () => {
-  const { darkMode, toggleTheme } = useContext(ThemeContext); 
-
+  const { darkMode, toggleTheme } = useContext(ThemeContext);
+  const { token } = useContext(AuthContext);
+  const navigate = useNavigate();
+  if (token) {
+    navigate('/tasks');
+  }
   return (
     <div className="flex items-center justify-center min-h-screen transition-all duration-500">
       <div className="text-center p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg max-w-lg text-gray-800 dark:text-white">

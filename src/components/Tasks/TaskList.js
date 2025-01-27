@@ -58,8 +58,8 @@ const TaskList = () => {
       <div className="flex mb-4 mt-4 space-x-4">
       <button
           onClick={toggleSortOrder}
-          className={`flex items-center px-4 py-2 text-sm font-bold rounded transition-all ${darkMode
-            ? 'bg-blue-600 text-white hover:bg-blue-700'
+          className={`flex items-center px-4 py-2 text-sm font-bold rounded-lg border transition-all ${darkMode
+            ? 'bg-gray-600 text-white hover:bg-gray-700'
             : 'bg-blue-500 text-white hover:bg-blue-600'
             }`}
         >
@@ -73,7 +73,10 @@ const TaskList = () => {
         <select
           value={sortByCompleted}
           onChange={handleSortByCompletedChange}
-          className="p-2 w-1/2 rounded-lg border"
+          className={`p-2 w-1/2 rounded-lg border ${darkMode
+            ? 'bg-gray-600 text-white hover:bg-gray-700'
+            : 'bg-blue-500 text-white hover:bg-blue-600'
+            }`}
         >
           <option value="all">All Tasks</option>
           <option value="completed">Completed</option>
