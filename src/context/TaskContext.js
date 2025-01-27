@@ -17,7 +17,7 @@ export const TaskProvider = ({ children }) => {
       if (dueDate) {
         params.dueDate = dueDate;
       }
-      if (sortByCompleted !== undefined) {
+      if (sortByCompleted) {
         params.completed = sortByCompleted;
       }
       const response = await axios.get('/tasks', { params });

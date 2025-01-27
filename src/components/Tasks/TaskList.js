@@ -7,7 +7,7 @@ const TaskList = () => {
   const { tasks, deleteTask, updateTaskStatus, fetchTasks } = useContext(TaskContext);
   const { darkMode } = useContext(ThemeContext);
   const [searchTerm, setSearchTerm] = useState('');
-  const [sortByCompleted, setSortByCompleted] = useState(undefined);
+  const [sortByCompleted, setSortByCompleted] = useState('');
   const [sortOrder, setSortOrder] = useState('asc'); 
 
   const toggleSortOrder = () => {
@@ -26,15 +26,15 @@ const TaskList = () => {
       setSortByCompleted('true');
     } else if (value === 'pending') {
       setSortByCompleted('false');
-    } else if(value === 'all') {
-      console.log('Invalid value:', value);
-      setSortByCompleted(undefined);
+    } else {
+      setSortByCompleted('');
     }
   };
 
   useEffect(() => {
     fetchTasks(searchTerm, sortOrder, sortByCompleted);
   }, [searchTerm, sortOrder, sortByCompleted]);
+
   return (
     <div
       className={`p-6 rounded-lg shadow-lg max-w-sm mx-auto mt-8 transition-all duration-500 ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'
