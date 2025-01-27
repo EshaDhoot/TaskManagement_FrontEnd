@@ -8,7 +8,7 @@ const TaskList = () => {
   const { darkMode } = useContext(ThemeContext);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortByCompleted, setSortByCompleted] = useState('');
-  const [sortOrder, setSortOrder] = useState('asc'); 
+  const [sortOrder, setSortOrder] = useState(''); 
 
   const toggleSortOrder = () => {
     const newOrder = sortOrder === 'asc' ? 'desc' : 'asc';
@@ -26,7 +26,7 @@ const TaskList = () => {
       setSortByCompleted('true');
     } else if (value === 'pending') {
       setSortByCompleted('false');
-    } else {
+    } else if(value === 'all') {
       setSortByCompleted('');
     }
   };
@@ -37,7 +37,7 @@ const TaskList = () => {
 
   return (
     <div
-      className={`p-6 rounded-lg shadow-lg max-w-sm mx-auto mt-8 transition-all duration-500 ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'
+      className={`p-6 rounded-lg shadow-lg max-w-2xl mx-auto mt-8 transition-all duration-500 ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'
         }`}
     >
       <h2 className={`text-3xl font-bold mb-6 text-center ${darkMode ? 'text-blue-300' : 'text-blue-500'}`}>
@@ -58,12 +58,12 @@ const TaskList = () => {
       <div className="flex mb-4 mt-4 space-x-4">
       <button
           onClick={toggleSortOrder}
-          className={`flex items-center px-4 py-2 text-sm font-bold rounded-lg border transition-all ${darkMode
+          className={`flex items-center px-4 py-2  w-1/2 rounded-lg border transition-all ${darkMode
             ? 'bg-gray-600 text-white hover:bg-gray-700'
-            : 'bg-blue-500 text-white hover:bg-blue-600'
+            : 'text-black hover:bg-blue-200'
             }`}
         >
-          Sort by Due Date
+          Sort by due date
           {sortOrder === 'asc' ? (
             <FaArrowUp className="ml-2" />
           ) : (
@@ -75,9 +75,10 @@ const TaskList = () => {
           onChange={handleSortByCompletedChange}
           className={`p-2 w-1/2 rounded-lg border ${darkMode
             ? 'bg-gray-600 text-white hover:bg-gray-700'
-            : 'bg-blue-500 text-white hover:bg-blue-600'
+            : 'text-black hover:bg-blue-200'
             }`}
         >
+          <option value="">Filter by status</option>
           <option value="all">All Tasks</option>
           <option value="completed">Completed</option>
           <option value="pending">Pending</option>
